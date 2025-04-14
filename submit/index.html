@@ -75,12 +75,30 @@
         width: 80vw;
         border: 1px solid var(--color-text);
         color: var(--color-text);
+        font-family:  "JetBrains Mono", monospace;
+        font-size: large;
     }
     #lang{
         background-color: var(--color-background);
         border-radius: 5px;
         border: 1px solid var(--color-text);
         color: var(--color-text);
+        font-family: "Inter", sans-serif;
+        font-size: large;
+    }
+    #author{
+        background-color: var(--color-background);
+        border-radius: 5px;
+        border: 1px solid var(--color-text);
+        color: var(--color-text);
+        font-family: "Inter", sans-serif;
+        font-size: large;
+    }
+    button{
+        font-size: large;
+        background-color: var(--token-important);
+        border: none;
+        border-radius: 2px;;
     }
     #output{
         font-family:  "JetBrains Mono", monospace;
@@ -89,7 +107,7 @@
     #notifs{
         color: var(--token-string)
     }
-    
+
     div.token {
         display: inline-block;
         margin: 0px;
@@ -293,7 +311,8 @@
     <div id="top">
         <textarea name="code" id="code"></textarea>
     </div>
-    <input id="lang" />
+    <input id="lang" placeholder="extension (py/js)"/>
+    <input id="author" placeholder="Author Name"/>
     <button id="test">test</button>
     <button id="submit">Submit</button>
     <div id="data"></div>
@@ -322,7 +341,8 @@
     })
 
     document.getElementById("submit").addEventListener("click",()=>{
-        let lang = document.getElementById("lang").value
+        let lang = document.getElementById("lang").value.substring(0, 1950)
+        let author = document.getElementById("author").value.substring(0, 30)
         let code = document.getElementById("code").value
         let codeBlock = `\`\`\`${lang}\n${code}\n\`\`\``
         fetch("https://discord.com/api/webhooks/1361367822617415770/XfkfRa_xUJdLrae_fgENbXIkY2QJxlI5B3kod1SOm9xkAk1cGnNnscqQGGZFjKBSgy5X",{
@@ -331,7 +351,7 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username: "Code Submission",
+                username: author,
                 content: codeBlock
             })
         }).then(val=>{
