@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz@0,14..32;1,14..32&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <title>Code Submission</title>
+</head>
+<style>
+    :root {
+        --color-background: #181818;
+        --color-tabs: #1f1f1f;
+        --color-text: #cccccc;
+        --color-cursor: #eeeeee;
+        --color-accent: #6caddf;
+        --color-secondary: lightgoldenrodyellow;
+        --token-unwritten: #333333;
+        --token-incorrect: #f08080;
+        --token-extra: lightgoldenrodyellow;
+        --token-comment: #636f88;
+        --token-prolog: #636f88;
+        --token-doctype: #636f88;
+        --token-cdata: #636f88;
+        --token-punctuation: #81A1C1;
+        --token-property: #81A1C1;
+        --token-tag: #81A1C1;
+        --token-constant: #81A1C1;
+        --token-symbol: #81A1C1;
+        --token-deleted: #81A1C1;
+        --token-number: #B48EAD;
+        --token-boolean: #81A1C1;
+        --token-selector: #A3BE8C;
+        --token-attr-name: #A3BE8C;
+        --token-string: #A3BE8C;
+        --token-char: #A3BE8C;
+        --token-builtin: #A3BE8C;
+        --token-inserted: #A3BE8C;
+        --token-operator: #81A1C1;
+        --token-entity: #81A1C1;
+        --token-url: #81A1C1;
+        --token-variable: #81A1C1;
+        --token-atrule: #88C0D0;
+        --token-attr-value: #88C0D0;
+        --token-function: #88C0D0;
+        --token-class-name: #88C0D0;
+        --token-keyword: #81A1C1;
+        --token-regex: #EBCB8B;
+        --token-important: #EBCB8B;
+    }
+
+    body {
+        background-color: var(--color-background);
+        color: #eeeeee;
+        font-size: x-large;
+        font-family: "Inter", sans-serif;
+        position: relative;
+    }
+
+    #top {
+        display: flex;
+        justify-content: center;
+    }
+
+    #code {
+        background-color: var(--color-background);
+        border-radius: 5px;
+        height: 25vh;
+        width: 80vw;
+        border: 1px solid var(--color-text);
+        color: var(--color-text);
+    }
+    #lang{
+        background-color: var(--color-background);
+        border-radius: 5px;
+        border: 1px solid var(--color-text);
+        color: var(--color-text);
+    }
+    #output{
+        font-family:  "JetBrains Mono", monospace;
+    }
+ 
+    #notifs{
+        color: var(--token-string)
+    }
+    
+    div.token {
+        display: inline-block;
+        margin: 0px;
+        min-width: 1ch;
+    }
+
+    .token.nl {
+        margin: 0px;
+        padding-right: 100%;
+    }
+
+    .token.incorrect {
+        /* border-bottom: 2px dotted rgb(189, 71, 71); */
+        color: var(--token-incorrect);
+        text-decoration: var(--token-incorrect) wavy underline;
+        text-decoration-skip-ink: none;
+    }
+
+    .token.extra {
+        color: var(--token-extra);
+    }
+
+    .token.unwritten {
+        color: var(--token-unwritten);
+    }
+
+    @keyframes blink {
+        0% {
+            color: var(--color-background);
+            background-color: var(--color-cursor);
+
+        }
+
+        49% {
+            color: var(--color-background);
+            background-color: var(--color-cursor);
+        }
+
+        50% {
+            color: var(--token-unwritten);
+            background-color: var(--color-background);
+        }
+
+        99% {
+            color: var(--token-unwritten);
+            background-color: var(--color-background);
+        }
+
+        100% {
+            color: var(--color-background);
+            background-color: var(--color-cursor);
+        }
+    }
+
+    .cursor {
+        animation: blink 0.6s infinite;
+    }
+
+    .cursor.space {
+        background-color: var(--color-cursor);
+        height: 2px;
+    }
+
+    .token.comment {
+        color: var(--token-comment);
+    }
+
+    .token.prolog {
+        color: var(--token-prolog);
+    }
+
+    .token.doctype {
+        color: var(--token-doctype);
+    }
+
+    .token.cdata {
+        color: var(--token-cdata);
+    }
+
+    .token.punctuation {
+        color: var(--token-punctuation);
+    }
+
+    .namespace {
+        opacity: .7;
+    }
+
+    .token.property {
+        color: var(--token-property);
+    }
+
+    .token.tag {
+        color: var(--token-tag);
+    }
+
+    .token.constant {
+        color: var(--token-constant);
+    }
+
+    .token.symbol {
+        color: var(--token-symbol);
+    }
+
+    .token.deleted {
+        color: var(--token-deleted);
+    }
+
+    .token.number {
+        color: var(--token-number);
+    }
+
+    .token.boolean {
+        color: var(--token-boolean);
+    }
+
+    .token.selector {
+        color: var(--token-selector);
+    }
+
+    .token.attr-name {
+        color: var(--token-attr-name);
+    }
+
+    .token.string {
+        color: var(--token-string);
+    }
+
+    .token.char {
+        color: var(--token-char);
+    }
+
+    .token.builtin {
+        color: var(--token-builtin);
+    }
+
+    .token.inserted {
+        color: var(--token-inserted);
+    }
+
+    .token.operator {
+        color: var(--token-operator);
+    }
+
+    .token.entity {
+        color: var(--token-entity);
+    }
+
+    .token.url {
+        color: var(--token-url);
+    }
+
+    .language-css .token.string,
+    .style .token.string,
+    .token.variable {
+        color: var(--token-variable);
+    }
+
+    .token.atrule {
+        color: var(--token-atrule);
+    }
+
+    .token.attr-value {
+        color: var(--token-attr-value);
+    }
+
+    .token.function {
+        color: var(--token-function);
+    }
+
+    .token.class-name {
+        color: var(--token-class-name);
+    }
+
+    .token.keyword {
+        color: var(--token-keyword);
+    }
+
+    .token.regex {
+        color: var(--token-regex);
+    }
+
+    .token.important {
+        color: var(--token-important);
+    }
+
+    .token.important,
+    .token.bold {
+        font-weight: bold;
+    }
+
+    .token.italic {
+        font-style: italic;
+    }
+
+    .token.entity {
+        cursor: help;
+    }
+</style>
+
+<body>
+    <div id="top">
+        <textarea name="code" id="code"></textarea>
+    </div>
+    <input id="lang" />
+    <button id="test">test</button>
+    <button id="submit">Submit</button>
+    <div id="data"></div>
+    <div id="notifs"></div>
+    <div id="output">
+
+    </div>
+
+
+<script type="module">
+    import { refractor } from 'https://esm.sh/refractor@5.0.0/es2022/refractor.bundle.mjs'
+
+    document.getElementById("test").addEventListener("click", () => {
+        let lang = document.getElementById("lang").value
+        let tokens = tokenClassify(refractor, document.getElementById("code").value, lang)
+        document.getElementById('output').innerHTML = "";
+        let tokenCount = 0;
+        for (const token of tokens) {
+            if (token.char == "\n") document.getElementById('output').innerHTML += `<div class="token ${token.className}">↩</div><div class="nl"></div>`
+            else document.getElementById('output').innerHTML += `<div class="token ${token.className}">${token.char}</div>`
+            if(token.char != " ") tokenCount++;
+        }
+        document.querySelector(".token").className += " cursor"
+        document.getElementById("data").innerHTML = `${tokenCount} .${lang} Tokens`
+
+    })
+
+    document.getElementById("submit").addEventListener("click",()=>{
+        let lang = document.getElementById("lang").value
+        let code = document.getElementById("code").value
+        let codeBlock = `\`\`\`${lang}\n${code}\n\`\`\``
+        fetch("https://discord.com/api/webhooks/1361367822617415770/XfkfRa_xUJdLrae_fgENbXIkY2QJxlI5B3kod1SOm9xkAk1cGnNnscqQGGZFjKBSgy5X",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: "Code Submission",
+                content: codeBlock
+            })
+        }).then(val=>{
+            console.log(val)
+            if(val.status == 204){
+                document.getElementById("notifs").innerHTML = "Success!"
+                setTimeout(()=>{
+                    document.getElementById("notifs").innerHTML = ""
+                },1500)
+            }else{
+                document.getElementById("notifs").innerHTML = JSON.stringify(val)
+                setTimeout(()=>{
+                    document.getElementById("notifs").innerHTML = ""
+                },5000)
+            }
+        })
+    })
+
+    function tokenClassify(refractor, code, lang) {
+        let tokens = []
+        const tree = refractor.highlight(code, lang)
+        console.log(tree)
+        for (const obj of tree.children) {
+            if (obj.type == "element") {
+                let letters = obj.children[0].value.split("")
+                let className = obj.properties.className.join(" ")
+                for (const c of letters) {
+                    tokens.push({ "char": c, "className": className })
+                }
+            }
+            else if (obj.type == "text") {
+                let letters = obj.value.split("")
+                for (const c of letters) {
+                    if (c == " ") tokens.push({ "char": " ", "className": "token space" })
+                    else if (c == "\t") tokens.push({ "char": "    ", "className": "token four-spaces" })
+                    else if (c == "\n") tokens.push({ "char": "\n", "className": "token newline" })
+                    else tokens.push({ "char": c, "className": "token text" })
+
+                }
+            }
+        }
+        return tokens;
+    }
+
+
+</script>
+
+
+</html>
